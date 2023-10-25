@@ -1,0 +1,333 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Data_Structure
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //stack();          ////
+
+            //Queue();          ////
+            
+            //linkedListNode one = new linkedListNode(1);
+            //linkedListNode two = new linkedListNode(2);        
+            //linkedListNode three = new linkedListNode(3);
+            //one.next = two;
+            //two.next = three;       
+            //Console.WriteLine(one.next.next.data);
+
+            //list list = new list();      ////
+            //list.Add(5);
+            //list.Add(6);
+            //list.Add(7);
+            //list.Display();
+            //list.seaech(4);
+
+
+
+            //var dict = new Dictionary<string, string>();                ////
+            //dict.Add("gmail", "ahmad-hamaideh");
+            //Console.WriteLine(dict["gmail"]);
+            ///*dict.Add("gmail", "rplgp");    */   // error becuse key is unice            
+            //if (!dict.ContainsKey("gmail"))
+            //{
+            //    dict.Add("gmail", "rplgp");
+            //}
+
+
+
+
+
+            //int x = 121;                                    /// task Palindrone
+            //bool vv = isPalindrone(x);
+            //Console.WriteLine(vv);
+
+            //int z = 12;                                      // task int to rmoan numper
+            //string ro = toRoman(z);    
+            //Console.WriteLine(ro);  
+
+
+
+
+            //BinaryTree head = new BinaryTree(8);                        //// Binary  Tree
+            //BinaryTree left = new BinaryTree(3);
+            //BinaryTree right = new BinaryTree(4);   
+            //head.left = left;   
+            //head.right = right;
+            //Console.WriteLine(head.right.v);
+
+
+            //int[]arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };                   ////
+            //int target = 3;
+            //int ok = BinarySearch(arr, target);
+            //if(ok == -1)
+            //{
+            //    Console.WriteLine("not found ");
+            //}
+            //else
+            //{
+            //    Console.WriteLine( "found on posion  : " + ok );
+            //}
+
+
+
+
+            graph["a"] = new List<string> { "b", "c" };
+            graph["b"] = new List<string> { "d" };
+            graph["c"] = new List<string> { "e" };
+            graph["d"] = new List<string> { "f" };
+            graph["s"] = new List<string> { "" };
+            graph["f"] = new List<string> { "" };
+            graph["e"] = new List<string> { "" };
+
+
+
+
+            Console.WriteLine("BFS = "); BFS("a");
+            //Console.WriteLine("DFS = "); DFS("a");
+
+
+
+
+
+
+        }
+        static void stack()
+        {
+            var stack = new Stack<int>();
+            stack.Push(1);
+            stack.Push(2);
+            stack.Push(3);
+            stack.Push(4);
+            Console.WriteLine(" The Count  =  " + stack.Count());
+            Console.WriteLine(stack.Pop());       //مجرد ما بعمل   pop  بينشال 
+            Console.WriteLine(" The Count  =  " + stack.Count());
+            Console.WriteLine(stack.Pop());
+            // اذا بدك قيمتها خزنها داخل var
+            var item = stack.Pop();
+            Console.WriteLine(item);
+            // وتقدر تسخدم peek  بتاخذ نظره بدون ما تحذف
+            Console.WriteLine(stack.Peek());
+
+
+        }
+
+        static void Queue()
+        {
+            var queue = new Queue<string>();
+            while (true)
+            {
+                Console.WriteLine("Select a document  to print ");
+                var input = Console.ReadLine();
+                if (input.Equals("x", StringComparison.OrdinalIgnoreCase))
+                {
+                    while (queue.Count() > 0)
+                    {
+                        Console.WriteLine($"print '{queue.Dequeue()}' .... ");
+                    }
+                }
+                else if (input.Equals("y", StringComparison.OrdinalIgnoreCase))
+                {
+                    while (true)
+                        Console.WriteLine($"count is a  '{queue.Count()}' .... ");
+                }
+                else queue.Enqueue(input);
+            }
+        }
+
+        class linkedListNode
+        {
+            public int data;
+            public linkedListNode next;
+            public linkedListNode(int x)
+            {
+                data = x;
+                next = null;
+            }
+        }
+        class list
+        {
+            linkedListNode head;
+            linkedListNode tail;
+            public list()
+            {
+                head = tail = null;
+            }
+            public void Add(int v)
+            {
+                linkedListNode item = new linkedListNode(v);
+                if (head == null)
+                {
+                    head = item;
+                    tail = item;
+                }
+                else
+                {
+                    tail.next = item;
+                    tail = item;
+                }
+            }
+            public void Display()
+            {
+                linkedListNode start = head;
+                if (start == null)
+                {
+                    Console.WriteLine("LIST Emity");
+                }
+                else
+                {
+                    while (start != null)
+                    {
+                        Console.WriteLine(start.data);
+                        start = start.next;
+                    }
+                }
+            }
+
+            public void seaech(int v)
+            {
+                linkedListNode cc = head;
+                int pos = 1;
+                while (cc != null)
+                {
+                    if (cc.data == v)
+                    {
+                        Console.WriteLine($" item '{v}' found position  '{pos}' ");
+                        return;
+                    }
+                    cc = cc.next;
+                    pos++;
+                }
+                if (cc == null)
+                {
+                    Console.WriteLine("not found ");
+                }
+            }
+        }
+
+
+
+
+        ////////////task Palindrone
+
+        static bool isPalindrone(int x)
+        {
+            if (x < 0)
+            {
+                return false;
+            }
+            string num = x.ToString();
+            char[] chars = num.ToCharArray();
+            Array.Reverse(chars);
+            string rev = new string(chars);
+            return num == rev;
+        }
+
+        //////// task int to roman numper 
+
+
+        static string toRoman(int z)
+        {
+
+            Dictionary<int, string> ROMAN = new Dictionary<int, string>
+            {
+                { 1000, "M" } ,
+                { 500 , "D" },
+                { 100 , "C" },
+                { 50 , "L" } ,
+                { 10 , "X" } ,
+                { 5 , "V" } ,
+                { 1 , "L" }
+            };
+            string normal = "";
+            foreach (var i in ROMAN)
+            {
+
+                while (z >= i.Key)
+                {
+                    normal += i.Value;
+                    z -= i.Key;
+                }
+            }
+            return normal;
+        }
+
+        class BinaryTree
+        {
+            public int v;
+            public BinaryTree right;
+            public BinaryTree left;
+            public BinaryTree(int s)
+            {
+                v = s;
+            }
+        }
+
+        static int BinarySearch(int[] arr, int target)
+        {
+            int left = 0;
+            int right = arr.Length - 1;
+            while (left <= right)
+            {
+                int mid = (left + right) / 2;
+
+                if (arr[mid] == target)
+                {
+                    return mid;
+                }
+                else if (arr[mid] < target)
+                {
+                    left = mid + 1;
+                }
+                else
+                {
+                    right = mid - 1;
+                }
+            }
+            return -1;
+        }
+
+        static Dictionary<string, List<string>> graph = new Dictionary<string, List<string>>();
+        static void BFS(string startNode)
+        {
+            Queue queue = new Queue();
+            queue.Enqueue(startNode);
+
+            while (queue.Count > 0)
+            {
+                var node = queue.Dequeue(); 
+               
+                Console.Write(node + " ");
+                foreach (var s in graph[(string)node])
+                {
+                    queue.Enqueue((string)s);
+                }
+
+            }
+        }
+
+        static void DFS(string xx)
+        {
+            Stack<string> stack = new Stack<string>();  
+            stack.Push(xx);
+
+            while (stack.Count > 0)
+            {
+                string n = stack.Pop(); 
+                Console.WriteLine(n + " ");
+                foreach (string s in graph[n])
+                {
+                    stack.Push(s);  
+                }
+
+            }
+        }
+    } }
+    
+
