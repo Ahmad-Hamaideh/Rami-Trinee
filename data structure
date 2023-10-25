@@ -1,0 +1,450 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            //int num = 5;           //Factorial
+            //int x = 1;
+
+            //for ( int i=1; i<=num; i++)
+            //{
+            //    x*=i;
+            //}
+            //Console.WriteLine(x);   
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //int number = 5;
+            //int ff = cc(number);
+            //Console.WriteLine(ff);
+
+
+            //public static int cc(int number)
+            //{
+            //    int ff = 1;
+
+            //        for (int i = number; i >= 2; i--)
+            //        {
+            //            ff *=  i;
+            //        }
+
+            //    return ff;
+            //}
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///
+            int[] num = { 1, 2, 3, 4, 5, 6, 7 };
+            int targ = 7;
+
+            //    if (sum7(num, targ)) {
+            //        Console.WriteLine("found");
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("NOT");
+            //    }
+            //}
+            //static bool sum7 (int[]srr , int tar)
+            //{
+            //    for (int i = 0;i<srr.Length-1; i++)
+            //    {
+            //        for (int j = i + 1; j < srr.Length; j++)
+            //        { 
+            //            if (srr[j] + srr[i] == tar)
+            //            {
+            //                return true;
+            //            }
+
+            //        }
+
+            //    }
+            //    return false;
+
+
+
+            //////////////////////////////////////////////////////////////////////
+
+
+            int x = 5;
+            int total =
+                (x - 1) * x / 2;                 // حساب عدد الايادي
+            Console.WriteLine(total);
+            //Console.WriteLine(hund(x));
+
+            /////////////////////////////////////////////////////////////////////////    Find the Smallest and Biggest Numbers
+
+            int[] n = { 8, 2, 5 };
+            int mainN = n[0];
+            int maxN = n[0];
+            for (int i = 1; i < n.Length; i++)
+            {
+                if (n[i] < mainN)
+                {
+                    mainN = n[i];
+                }
+                else if (n[i] > maxN)
+                {
+                    maxN = n[i];
+                }
+            }
+            Console.WriteLine(" Max number : " + maxN);
+            Console.WriteLine(" main number : " + mainN);
+
+            ///////////////////////////////////////////////////////////////////  power 
+
+            int[] xx = { 5, 3 };
+            int numbb = xx[0];
+            int power = xx[1];
+            int ru = 1;
+            for (int i = 0; i < power; i++)
+            {
+                ru *= numbb;
+
+            }
+            Console.WriteLine(ru);
+
+            ////////////////////////////////////////////////////////// Remove the First and Last Characters
+
+            string talk = "ahmad";
+            string world = "";
+            if (talk.Length >= 2)
+            {
+                for (int i = 1; i < talk.Length - 1; i++)
+                {
+                    world += talk[i];
+                }
+            }
+            Console.WriteLine(world);
+
+            ///////////////////////////////////////////////////////////   Burrrrrrrp
+            string bu = "bu";
+            string r = "r";
+            int nmb = 6;
+            for (int i = 0; i < nmb; i++)
+            {
+                bu += r;
+            }
+            bu += "p";
+
+            Console.WriteLine(bu);
+
+            /////////////////////////////////////////////////////        found bomb
+
+            string world9 = "There  is a ";
+            string bu9 = "bomb";
+            bool bnb = false;
+            for (int i = 0; i < world9.Length - 3; i++)
+            {
+                if (world9.Substring(i, 4).ToLower() == "bomb")
+                {
+                    bnb = true;
+                }
+            }
+            if (bnb == true)
+            {
+                Console.WriteLine("found bomb");
+            }
+            else
+            {
+                Console.WriteLine("not bomb");
+
+            }
+
+            //////////////////////////////////////////////////////////////// Input: nums = [2,7,11,15],  target = 9   Output:[0,1]
+
+
+            //int[] nums = { 2, 7, 11, 15 };
+            //int target = 18;
+
+
+            //for (int i = 0; i < nums.Length; i++)
+            //{
+            //    for (int j = i + 1; j < nums.Length; i++)
+            //    {
+            //        if (nums[j] + nums[i] == target)
+            //        {
+
+            //            Console.WriteLine($"[{i} , {j}]");
+            //        }
+
+            //    }
+            //}
+            ///////////////////////////////////////////////////////////////////////   
+
+
+
+            //string[] str = { "flower", "flow", "flight" };          ////   not complet
+
+
+            //string k = prfx(str);
+            //Console.WriteLine(k);
+
+
+
+
+            /////////////////////////////////////////////////////
+
+            //int[] arr = { 1, 2, 3, 4, 5, 6, 7 };
+            //int tar = 7;
+            //int ind = 0;
+
+            //if (sum7(arr, tar, ind))
+            //{
+            //    Console.WriteLine("FOUND");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("not found");
+            //}
+            //////////////////////////////////////////////////////////////////////////////////////////////////  Valid  Parentheses
+            ///
+
+
+            //string ll = "(}";
+            //bool isv = Valid_Parentheses(ll);
+            //Console.WriteLine(isv);
+            //Console.ReadKey();
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////  Length of Last Word
+            ///
+
+
+            //string lenghtWORLD = "luffy is still joyboy";
+            //int nn = Length_Last_Word(lenghtWORLD);
+            //Console.WriteLine("Length of Last Word  : " +lenghtWORLD +"  = "+  nn);
+            //Console.ReadKey();
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////  Best Time to Buy and Sell Stock
+
+
+
+            //int[] price = { 7, 1, 5, 3, 6, 4 };
+            //int bb = MaxProfit(price);
+            //Console.WriteLine(bb);
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////// Convert Number to   Month Name
+
+
+            int day = 15;
+            string fd = MonthName(day); 
+            Console.WriteLine( " Month name  : "    +fd);
+
+
+            /////////////////////////////////////////////////////////////////////////////////////////////  
+            ///
+
+            double nuuum = 8 / 4;
+            bool mm = bigone(nuuum);
+            Console.WriteLine(mm);
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////  Maskify the String ###7878
+
+       
+
+            string numCard = "7478586967417414";
+            string lkl = hush(numCard);
+            Console.WriteLine(lkl);
+
+
+            //////////////////////////////////// ///////////////////////////////////////////////////////////////// Seven Boom!
+
+            
+
+            string[] dll = { "dfrg , prgkfrt ,fg , f ,7" };
+            bool lf = boom(dll);
+            if(lf == true)
+            {
+                Console.WriteLine("boooooooom");
+            }
+            else
+            {
+                Console.WriteLine("not found noumber 7");
+            }
+
+
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //static bool sum7(int[] arr, int tar, int index)
+        //{
+
+        //    if (index > arr.Length - 1)
+        //    {
+        //        return false;
+        //    }
+        //    int curr = arr[index];
+        //    int mnum = tar - curr;     // 7-1 = 6
+        //    for (int i = index + 1; i < arr.Length; i++)
+        //    {
+        //        if (arr[i] == mnum) { return true; }
+        //    }
+
+        //    return sum7(arr, tar, index + 1);
+        //}
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        ///
+
+        //static int hund (int x )
+        // {
+        //     if  (x == 0)                                       //حساب عدد الايادي
+        //         return 0;
+        //     else
+        //         return (x - 1) * x/2; ;
+        // }
+
+
+        /////////////////////////////////////////// 
+
+        //public static string prfx(string[] str)               // not complet
+        //{
+        //    if (str.Length == 0) {return "";};
+
+        //        string prr = str[0];
+        //    for(int i = 1; i < str.Length; i++)
+        //    {
+        //        while(str[i].IndexOf(prr) != 0)
+        //        {
+        //            prr= prr.Substring(0, prr.Length - 1);
+
+        //        }
+        //        if(prr  == null)
+        //        {
+        //            return "";
+        //        }
+        //    }
+        //    return prr;
+
+
+
+        //}
+
+
+        public static bool Valid_Parentheses(string ll)
+        {
+
+            Stack<char> stack = new Stack<char>();
+            Dictionary<char, char> bracet = new Dictionary<char, char>
+
+            {
+
+                { '(', ')' },
+                { '{', '}' },
+                { '[', ']' }
+
+            };
+
+            foreach (char c in ll)
+            {
+                if (bracet.ContainsKey(c))
+                {
+                    stack.Push(c);
+                }
+                else if (bracet.ContainsValue(c))
+                {
+                    if (stack.Count == 0 || bracet[stack.Pop()] != c)
+                    {
+                        return false;
+                    }
+                }
+
+            }
+            return stack.Count == 0;
+        }
+
+
+        public static int Length_Last_Word(string lenghtWORLD)
+        {
+            string[] world = lenghtWORLD.Trim().Split(' ');
+
+            if (world.Length == 0)
+            {
+                return 0;
+            }
+
+            return world[world.Length - 1].Length;
+        }
+
+
+        public static int MaxProfit(int[] prices)
+        {
+            int mainPrice = int.MaxValue;
+            int profit = 0;
+
+            for (int i = 0; i < prices.Length; i++)
+            {
+                if (prices[i] < mainPrice)
+                {
+                    mainPrice = prices[i];
+                }
+                else if (prices[i] - mainPrice > profit)
+                {
+                    profit = prices[i] - mainPrice;
+                }
+
+                
+            }
+            return profit;
+        }
+        public static string MonthName ( int day)
+        {
+            Dictionary<int, string> month = new Dictionary<int, string>
+            {
+                { 1 , " January" } ,
+                { 2 , " February " }
+
+            };
+            if (month.ContainsKey(day))
+            {
+                return month[day];  
+            }
+
+
+            return "not month";
+        }
+
+        public static bool bigone(double nuuum)
+
+        {
+         
+
+            return nuuum > 1.0;
+
+}
+
+
+        public static string hush(string numCard)
+        {
+            char[] ner = new char[numCard.Length];
+            for (int i = 0; i < numCard.Length; i++)
+            {
+                if (i < numCard.Length - 4 && numCard.Length> 4)
+                {
+                    ner[i] = '#';
+                }
+                else
+                {
+
+                    ner[i] = numCard[i];
+                }
+            }
+        
+            return new string(ner); 
+        }
+
+    public static bool boom ( string[]dll )
+        {
+
+            for(int i = 0; i< dll.Length; i++)
+            {
+                if( dll[i].Contains("7")) { return true; }
+            }
+            return false;
+        }
+    }
+}
