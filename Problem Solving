@@ -230,8 +230,8 @@ namespace ConsoleApp2
 
 
             int day = 15;
-            string fd = MonthName(day); 
-            Console.WriteLine( " Month name  : "    +fd);
+            string fd = MonthName(day);
+            Console.WriteLine(" Month name  : " + fd);
 
 
             /////////////////////////////////////////////////////////////////////////////////////////////  
@@ -244,20 +244,19 @@ namespace ConsoleApp2
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////  Maskify the String ###7878
 
-       
+
 
             string numCard = "7478586967417414";
             string lkl = hush(numCard);
             Console.WriteLine(lkl);
 
 
-            //////////////////////////////////// ///////////////////////////////////////////////////////////////// Seven Boom!
+            //////////////////////////////////// 
+            ///
 
-            
-
-            string[] dll = { "dfrg , prgkfrt ,fg , f ,7" };
+            string[] dll = { "dfrg , prgkfrt ,fg , f ,u " };
             bool lf = boom(dll);
-            if(lf == true)
+            if (lf == true)
             {
                 Console.WriteLine("boooooooom");
             }
@@ -266,10 +265,71 @@ namespace ConsoleApp2
                 Console.WriteLine("not found noumber 7");
             }
 
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
+            ///
+
+            //string nx = " abcabcbb";
+
+            //int k = longhtstring(nx);
+            //Console.WriteLine(k);   
+
+
+            string num1 = "321";
+            string h = revint(num1);
+            Console.WriteLine(h);
+
+
+
+            //////////////////////////////////////////////////////////////////// 
+            ///
+
+            //int[] rtt = { 1,  9, 3, 4, 4, 5, 6, 5 };
+            //int cc = remove(rtt);
+            //Console.WriteLine("Numper of uniqe " + cc + "");
+            //for (int i = 0; i < cc; i++)
+            //{
+            //    Console.WriteLine(rtt[i] + "");
+            //}
+            ///////////////////////////////////////////////////////////////////////////  1941. Check if All Characters Have Equal Number of Occurrences
+            ///
+            //string sf = "aabbdcc";
+            //bool ff = AreOccurrencesEqual(sf);
+            //Console.WriteLine(ff);
+            //Console.ReadKey();
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////     //1893. Check if All the Integers in a Range Are Covered
+            ///
+
+            //int[][] ranges = { new int[] { 1, 2 }, new int[] { 3, 4 }, new int[] { 5, 6 } };
+            //int left = 2;
+            //int right = 5;
+            //bool cover = IsCovered(ranges, left, right);
+            //Console.WriteLine(cover);
+            //Console.ReadKey();  
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  //806. Number of Lines To Write String 
+
+            //int[] widths = { 4, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10 };
+            //string s = "bbbcccdddaaa";
+            //int[]rus = NumberOfLines(widths ,s) ;
+            //Console.Write(rus[0] + " "  ) ;
+            //Console.Write(" " + rus[1] + " " );
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////  392. Is Subsequence
+
+            //string s = "ab"; string t = "ahbgdc";
+            //bool p = IsSubsequence(s,t);
+            //Console.WriteLine(p);
+            //Console.ReadKey();
+
+
 
         }
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //static bool sum7(int[] arr, int tar, int index)
         //{
 
@@ -387,11 +447,11 @@ namespace ConsoleApp2
                     profit = prices[i] - mainPrice;
                 }
 
-                
+
             }
             return profit;
         }
-        public static string MonthName ( int day)
+        public static string MonthName(int day)
         {
             Dictionary<int, string> month = new Dictionary<int, string>
             {
@@ -401,7 +461,7 @@ namespace ConsoleApp2
             };
             if (month.ContainsKey(day))
             {
-                return month[day];  
+                return month[day];
             }
 
 
@@ -411,11 +471,11 @@ namespace ConsoleApp2
         public static bool bigone(double nuuum)
 
         {
-         
+
 
             return nuuum > 1.0;
 
-}
+        }
 
 
         public static string hush(string numCard)
@@ -423,7 +483,7 @@ namespace ConsoleApp2
             char[] ner = new char[numCard.Length];
             for (int i = 0; i < numCard.Length; i++)
             {
-                if (i < numCard.Length - 4 && numCard.Length> 4)
+                if (i < numCard.Length - 4 && numCard.Length > 4)
                 {
                     ner[i] = '#';
                 }
@@ -433,18 +493,255 @@ namespace ConsoleApp2
                     ner[i] = numCard[i];
                 }
             }
-        
-            return new string(ner); 
+
+            return new string(ner);
         }
 
-    public static bool boom ( string[]dll )
+        public static bool boom(string[] dll)
         {
 
-            for(int i = 0; i< dll.Length; i++)
+            for (int i = 0; i < dll.Length; i++)
             {
-                if( dll[i].Contains("7")) { return true; }
+                if (dll[i].Contains("7")) { return true; }
             }
             return false;
         }
-    }
-}
+
+
+        //public static int longhtstring(string nx)              //// not copmlete
+        //{
+        //    char[]newchar = new char[nx.Length];
+        //    string kk = "";
+        //    string gg = "";
+
+        //    for(int i = 0; i < nx.Length; i++)
+        //    {
+        //        if(kk.Contains(nx[i]) )
+        //        {
+        //            gg += nx[i];
+        //        }
+        //        else if (!kk.Contains(nx[i]) ) {
+        //            kk +=nx[i];
+        //        }
+        //        else
+        //        {
+
+        //        }
+        //    }
+
+        //    return gg.Length;
+        //} 
+        public static string revint(string nuum1)
+
+        {
+            char[] neww = nuum1.ToCharArray();
+
+            Array.Reverse(neww);
+            return new string(neww);
+        }
+
+        //public static string phonenumper ( int lul)                                     //// not complete
+        //{
+        //    Dictionary<int , string> dic = new Dictionary<int, string>
+        //    {
+        //        { 1 , "&" } ,
+        //        { 2 , "abc" } ,
+        //        { 3 , "def" } ,
+        //        { 4 , "ghi" }
+        //    };
+        //    string kt = "";
+        //    foreach (int i in lul.ToString() )
+        //    {
+        //        if(dic.ContainsKey(lul))
+        //        {
+        //            kt = dic[lul];
+        //        }
+        //}
+
+
+        //}  
+
+
+
+
+
+
+
+
+        //public static int remove(int[] rtt)
+        //{
+        //    int total = 0;
+        //    int current = int.MinValue;
+        //    foreach (int i in rtt)
+        //    {
+        //        if (current != i)
+        //        {
+        //            total++;
+        //            rtt[total ] = i;
+        //        }
+        //        current = i;
+        //    }
+
+        //    return total;
+        //}
+
+        public static int remove(int[] rtt)
+        {
+            int total = 1;
+            for (int i = 1; i < rtt.Length; i++)
+            {
+                bool isdup = false;
+                for (int j = 0; j < total; j++)
+                {
+                    if (rtt[i] == rtt[j])
+                    {
+                        isdup = true;
+                        break;
+                    }
+                    if (!isdup)
+                    {
+                        rtt[total] = rtt[i];
+                        total++;
+
+                    }
+                }
+
+            }
+                return total;
+
+        }
+
+        //public class Solution                  ////650. 2 Keys Keyboard 
+
+        //{
+        //    public int MinSteps(int target)
+        //    {
+        //        ///////////////////////////////////
+
+        //        char initChar = 'A';
+
+        //        List<char> fMem = new List<char>();
+        //        fMem.Add(initChar);
+
+        //        List<char> sMem = new List<char>();
+
+        //        int steps = 0;
+
+        //        char[] result = new char[target];
+
+        //        ///////////////////////////////////////
+
+        //        if(target == 1)
+        //        {
+        //            return 0;
+        //        }
+
+        //        for (int i = 1; i < target; i++)
+        //        {
+
+        //        }
+
+
+        //    }
+
+        //    public List<char> CopyAll(List<char> mem)
+        //    {
+
+        //    }
+
+
+
+        ////////////////////////////////////////////////////////// 1941. Check if All Characters Have Equal Number of Occurrences
+          
+        public static bool AreOccurrencesEqual(string s)
+        {
+
+            Dictionary<char, int> occurrences = new Dictionary<char, int>();
+
+            foreach(var c in s)
+            {
+                if (occurrences.ContainsKey(c))
+                {
+                    occurrences[c]++;
+                }
+                else { occurrences[c] = 1;}
+            }
+
+            int first = occurrences[s[0]];
+            foreach (var count in occurrences.Values)
+            {
+                if(count != first)
+                {
+                   return false;    
+                }
+            }
+            return true;    
+        }
+
+        public static bool IsCovered(int[][] ranges, int left, int right)                      //1893. Check if All the Integers in a Range Are Covered
+        {
+            for (int i = left; i <= right; i++)
+            {
+                bool iscoverd = false;
+
+
+                foreach (var range in ranges)
+                {
+                    if (i >= range[0] && i <= range[1]) {
+                        iscoverd = true; break; }
+
+
+                }
+
+                if (!iscoverd)
+                {
+                    return false;
+                }
+            }
+            return true; 
+        }
+        public static int[] NumberOfLines(int[] widths, string s)           //806. Number of Lines To Write String
+        {
+            int line = 1;
+            int lastwidth = 0;
+
+            foreach (var c in s)
+            {
+                int charwidth = widths[c - 'a'];    // use you take width char  and you can use , width[c - 97 ]  97 == 'a'  
+                if(lastwidth  + charwidth <= 100)
+                {
+                    lastwidth += charwidth;
+                }
+                else
+                {
+                    line++;
+                    lastwidth = charwidth;
+                }
+            }
+
+            return new int[] { line, lastwidth };
+        }
+        public static bool IsSubsequence(string s, string t)  //392. Is Subsequence
+            {
+           
+            int j = 0;  
+            int i = 0;  
+            while(i< s.Length && j<t.Length)
+            {
+                if(s[i] == t[j]) { i++; } 
+                j++;
+            }
+            return i == s.Length;  /// اذا وصل لنهاية المصفوفه الاولى اذا true
+        }
+
+        //public static bool IsPowerOfTwo(int n)
+        //{
+        //    int i = 0;
+        //    while (true)
+        //    {
+        //        if (2^i = n)
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //}
