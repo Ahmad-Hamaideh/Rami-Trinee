@@ -223,3 +223,47 @@ document.addEventListener("DOMContentLoaded", function () {
 ```
 
 بهذا الشكل، إذا كانت كلمة المرور صحيحة، ستتم إعادة توجيه المستخدم إلى الصفحة "SuccessPage" (يمكنك استبدالها بالصفحة المستهدفة الخاصة بك)، وإذا كانت خاطئة، ستتم عرض رسالة الخطأ.
+
+
+
+
+
+
+إذا كان الكود السابق يعطيك خطأ في الطلب، يمكنك استخدام Fetch API لإجراء الطلب بطريقة أخرى. إليك الكود الذي يستخدم Fetch API بدلاً من XMLHttpRequest:
+
+```javascript
+document.addEventListener("DOMContentLoaded", function () {
+    var saveButton = document.getElementById("savebtn");
+    var errorContainer = document.getElementById("error");
+
+    saveButton.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        var password = document.getElementById("old").value;
+
+        fetch("/login2/EditPasowrdd", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ password: password }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
+                // على سبيل المثال، يمكنك إعادة توجيه الصفحة إلى صفحة أخرى
+                window.location.href = "/anotherpage";
+            } else {
+                // الكلمة السرية غير صحيحة، عرض رسالة الخطأ ومنع إعادة تحميل الصفحة
+                errorContainer.textContent = data.message;
+            }
+        })
+        .catch(error => {
+            errorContainer.textContent = "حدث خطأ أثناء الطلب.";
+        });
+    });
+});
+```
+
+هذا الكود يستخدم Fetch API لإرسال الطلب ومعالجة الرد، ويتيح لك التحقق من رد الإجراء وعرض الرسائل بشكل صحيح. يُفضل أيضًا التحقق من تنسيق ونوع البيانات المرجعة في الرد الذي تستقبله من الإجراء.
