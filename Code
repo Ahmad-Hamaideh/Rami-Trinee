@@ -162,3 +162,64 @@ public class PasswordViewModel
         });
     });
 
+١١١١١١١١١١١١١١
+
+لكي تحقق هذا السلوك، يجب أن يتم التحقق من صحة كلمة المرور داخل الإجراء (Action) وبناءً على النتيجة، يمكن إعادة توجيه المستخدم إلى صفحة أخرى في حالة نجاح أو عرض رسالة خطأ دون توجيه في حالة خطأ. هناك كود JavaScript في السؤال السابق يتيح لك تنفيذ هذا السلوك على الجانب العميل، والآن سنقوم بتحسين الإجراء ليتناسب مع هذا السيناريو.
+
+الإجراء في الكونترولر:
+
+```csharp
+[HttpPost]
+public ActionResult CheckPassword(string password)
+{
+    if (password == "كلمة_المرور_الصحيحة")
+    {
+        // الكلمة السرية صحيحة، يمكنك تنفيذ الإجراءات اللازمة هنا
+
+        // في هذا المثال، سنقوم بتوجيه المستخدم إلى صفحة أخرى
+        return RedirectToAction("SuccessPage");
+    }
+    else
+    {
+        // الكلمة السرية غير صحيحة، يمكن عرض رسالة خطأ
+        return Json(new { error = "كلمة المرور غير صحيحة." });
+    }
+}
+```
+
+في هذا المثال، إذا كانت كلمة المرور صحيحة، سيتم توجيه المستخدم إلى "SuccessPage" (التي يجب أن تكون صفحة أخرى موجودة في تطبيقك). إذا كانت خاطئة، ستتم إعادة رسالة JSON مع خاصية "error" لعرضها بواسطة JavaScript.
+
+ثم، يمكنك تحسين الكود الجافا سكربت لتنفيذ السلوك المطلوب:
+
+```javascript
+document.addEventListener("DOMContentLoaded", function () {
+    var saveButton = document.getElementById("savebtn");
+    var errorContainer = document.getElementById("error");
+
+    saveButton.addEventListener("click", function (e) {
+        e.preventDefault();
+        var password = document.getElementById("old").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/login2/EditPasowrdd", true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.error) {
+                    // عرض رسالة الخطأ
+                    errorContainer.textContent = response.error;
+                }
+            } else {
+                // حدث خطأ أثناء الطلب
+                errorContainer.textContent = "حدث خطأ أثناء الطلب.";
+            }
+        };
+
+        xhr.send(JSON.stringify({ password: password }));
+    });
+});
+```
+
+بهذا الشكل، إذا كانت كلمة المرور صحيحة، ستتم إعادة توجيه المستخدم إلى الصفحة "SuccessPage" (يمكنك استبدالها بالصفحة المستهدفة الخاصة بك)، وإذا كانت خاطئة، ستتم عرض رسالة الخطأ.
