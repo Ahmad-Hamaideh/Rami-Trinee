@@ -1,0 +1,112 @@
+
+الإجراء (Action) في الكونترولر:
+
+```csharp
+[HttpPost]
+public ActionResult CheckPassword([FromBody] PasswordViewModel passwordModel)
+{
+    if (passwordModel.password == "كلمة_المرور_الصحيحة")
+    {
+        return Json(new { success = true });
+    }
+    else
+    {
+        return Json(new { error = "كلمة المرور غير صحيحة." });
+    }
+}
+```
+
+نموذج البيانات `PasswordViewModel` يمكن أن يكون مثل هذا:
+
+```csharp
+public class PasswordViewModel
+{
+    public string password { get; set; }
+}
+```
+
+الكود الجافا سكربت في HTML View:
+
+```html
+@using (Html.BeginForm("CheckPassword", "ControllerName", FormMethod.Post))
+{
+    <input type="text" id="passwordInput" />
+    <button type="submit" id="checkPasswordButton">تحقق</button>
+    <div id="errorContainer" style="color: red;"></div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#checkPasswordButton").click(function (e) {
+            e.preventDefault();
+            var password = $("#passwordInput").val();
+            
+            $.ajax({
+                url: '/ControllerName/CheckPassword',
+                type: 'POST',
+                data: JSON.stringify({ password: password }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
+                    } else if (data.error) {
+                        // كلمة المرور غير صحيحة، عرض رسالة الخطأ
+                        $("#errorContainer").text(data.error);
+                    }
+                }
+            });
+        });
+    });
+</script>
+```
+
+تأكد من تعويض "ControllerName" بالاسم الصحيح للكونترولر الخاص بك. هذا المثال يستخدم `$.ajax` لإرسال البيانات كـ JSON واستقبال الرد أيضًا كـ JSON دون إعادة تحميل الصفحة.
+
+
+////////////////////////////////////////
+
+
+بالطبع، سأقوم بتبسيط الكود السابق بدون استخدام jQuery:
+
+```html
+<form id="passwordForm">
+    <input type="text" id="passwordInput" />
+    <button type="button" id="checkPasswordButton">تحقق</button>
+    <div id="errorContainer" style="color: red;"></div>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var saveButton = document.getElementById("checkPasswordButton");
+        var errorContainer = document.getElementById("errorContainer");
+
+        saveButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            var password = document.getElementById("passwordInput").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/ControllerName/CheckPassword", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
+                    } else if (response.error) {
+                        // كلمة المرور غير صحيحة، عرض رسالة الخطأ
+                        errorContainer.textContent = response.error;
+                    }
+                } else {
+                    errorContainer.textContent = "حدث خطأ أثناء الطلب.";
+                }
+            };
+
+            xhr.send(JSON.stringify({ password: password }));
+        });
+    });
+</script>
+```
+
+الكود الذي تم تبسيطه يستخدم JavaScript الخالي من jQuery للتفاعل مع الصفحة وإجراء الطلب على الخادم بشكل غير متزامن دون إعادة تحميل الصفحة. قم بتغيير "ControllerName" إلى اسم الكونترولر الخاص بك في URL الخاص بالطلب.
