@@ -1,269 +1,71 @@
+( ajax on js   لجعل الكود غير متزامن بحيث عند جدوث خطاء ما بعمل ريلود للصفحة استخدم  ***  )
 
-الإجراء (Action) في الكونترولر:
 
-```csharp
-[HttpPost]
-public ActionResult CheckPassword([FromBody] PasswordViewModel passwordModel)
-{
-    if (passwordModel.password == "كلمة_المرور_الصحيحة")
-    {
-        return Json(new { success = true });
-    }
-    else
-    {
-        return Json(new { error = "كلمة المرور غير صحيحة." });
-    }
-}
-```
 
-نموذج البيانات `PasswordViewModel` يمكن أن يكون مثل هذا:
 
-```csharp
-public class PasswordViewModel
-{
-    public string password { get; set; }
-}
-```
-
-الكود الجافا سكربت في HTML View:
-
-```html
-@using (Html.BeginForm("CheckPassword", "ControllerName", FormMethod.Post))
-{
-    <input type="text" id="passwordInput" />
-    <button type="submit" id="checkPasswordButton">تحقق</button>
-    <div id="errorContainer" style="color: red;"></div>
-}
-
+                <input type="text" name="old" id="old" />         id عاديه جدا وبنوصللها عن طريق 
+ 
+  
 <script>
-    $(document).ready(function () {
-        $("#checkPasswordButton").click(function (e) {
+    document.addEventListener("DOMContentLoaded", function () {
+        var saveButton = document.getElementById("savebtn");                 // الزر الي هيرسل form
+        var errorContainer = document.getElementById("error");              // المكان الي هتكتب فيه الايرور عند حدوث خطاء
+
+        saveButton.addEventListener("click", function (e) {
             e.preventDefault();
-            var password = $("#passwordInput").val();
-            
-            $.ajax({
-                url: '/ControllerName/CheckPassword',
-                type: 'POST',
-                data: JSON.stringify({ password: password }),
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                success: function (data) {
+
+            var password = document.getElementById("old").value;               // قيمة inputs الي عندك ولكن تاكد انه عدد القيم الي بالاكشن هي نفسها الي هون والي هتبعثها
+            var x = document.getElementById("x").value;
+
+
+            fetch("\\login2/EditPaswordd", {                                  // الاكشن الي هتبعثله القيم
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ password: password, x : x }),
+            })
+                .then(response => response.json())
+                .then(data => {
                     if (data.success) {
-                        // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
-                    } else if (data.error) {
-                        // كلمة المرور غير صحيحة، عرض رسالة الخطأ
-                        $("#errorContainer").text(data.error);
+                        //    errorContainer.textContent = "true";
+                        window.location.href = '/login2/';                                      // اذا كان صح ايش يظهر ؟
+                    } else {
+                        // الكلمة السرية غير صحيحة، عرض رسالة الخطأ ومنع إعادة تحميل الصفحة
+                        errorContainer.textContent = "erorr";
                     }
-                }
-            });
+
+                })
+                   // يستخدم عند عدم وصول الريكوست من الاساس  
+                //.catch(error => {
+                //    errorContainer.textContent = "حدث خطأ أثناء الطلب.";                
+               
         });
-    });
-</script>
-```
-
-تأكد من تعويض "ControllerName" بالاسم الصحيح للكونترولر الخاص بك. هذا المثال يستخدم `$.ajax` لإرسال البيانات كـ JSON واستقبال الرد أيضًا كـ JSON دون إعادة تحميل الصفحة.
-
-
-////////////////////////////////////////
-
-
-بالطبع، سأقوم بتبسيط الكود السابق بدون استخدام jQuery:
-
-```html
-<form id="passwordForm">
-    <input type="text" id="passwordInput" />
-    <button type="button" id="checkPasswordButton">تحقق</button>
-    <div id="errorContainer" style="color: red;"></div>
-</form>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var saveButton = document.getElementById("checkPasswordButton");
-        var errorContainer = document.getElementById("errorContainer");
-
-        saveButton.addEventListener("click", function (e) {
-            e.preventDefault();
-            var password = document.getElementById("passwordInput").value;
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/ControllerName/CheckPassword", true);
-            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
-                    } else if (response.error) {
-                        // كلمة المرور غير صحيحة، عرض رسالة الخطأ
-                        errorContainer.textContent = response.error;
-                    }
-                } else {
-                    errorContainer.textContent = "حدث خطأ أثناء الطلب.";
-                }
-            };
-
-            xhr.send(JSON.stringify({ password: password }));
-        });
-    });
-</script>
-```
-
-الكود الذي تم تبسيطه يستخدم JavaScript الخالي من jQuery للتفاعل مع الصفحة وإجراء الطلب على الخادم بشكل غير متزامن دون إعادة تحميل الصفحة. قم بتغيير "ControllerName" إلى اسم الكونترولر الخاص بك في URL الخاص بالطلب.
+    }); 
+  </script> 
 
 
 
+ (وهنا الاكشن المستخم ولاحظ انه  القيمه المرسله من جافاسكربت هي نفسها الي هستقبلها بالاكشن )
 
+    [HttpPost]
+        public ActionResult EditPaswordd([Bind(Include = "password")]    string password , string x )
+        {       
+            var oldd = db.login2.FirstOrDefault (c => c.password == password);
+            if ( oldd != null)
+            {
+                oldd.password = x ;            
+                db.Entry(oldd).State = EntityState.Modified;
+                db.SaveChanges();
 
+                return Json(new { success = true });              // json لاحظ انك بترجع 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-///////////////////// 
-
-
-    document.addEventListener("DOMContentLoaded", function () {
-        var saveButton = document.getElementById("savebtn");
-        var errorContainer = document.getElementById("error");
-
-        saveButton.addEventListener("click", function (e) {
-            e.preventDefault();
-            var password = document.getElementById("old").value;
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/login2/EditPasowrdd", true);
-            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    var response = JSON.parse(xhr.responseText);
-                    if (response.success) {
-                        // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
-                    } else if (response.error) {
-                        // كلمة المرور غير صحيحة، عرض رسالة الخطأ
-                        errorContainer.textContent = response.error;
-                    }
-                } else {
-                    errorContainer.textContent = "حدث خطأ أثناء الطلب.";
-                }
-            };
-
-            xhr.send(JSON.stringify({ password: password }));
-        });
-    });
-
-١١١١١١١١١١١١١١
-
-لكي تحقق هذا السلوك، يجب أن يتم التحقق من صحة كلمة المرور داخل الإجراء (Action) وبناءً على النتيجة، يمكن إعادة توجيه المستخدم إلى صفحة أخرى في حالة نجاح أو عرض رسالة خطأ دون توجيه في حالة خطأ. هناك كود JavaScript في السؤال السابق يتيح لك تنفيذ هذا السلوك على الجانب العميل، والآن سنقوم بتحسين الإجراء ليتناسب مع هذا السيناريو.
-
-الإجراء في الكونترولر:
-
-```csharp
-[HttpPost]
-public ActionResult CheckPassword(string password)
-{
-    if (password == "كلمة_المرور_الصحيحة")
-    {
-        // الكلمة السرية صحيحة، يمكنك تنفيذ الإجراءات اللازمة هنا
-
-        // في هذا المثال، سنقوم بتوجيه المستخدم إلى صفحة أخرى
-        return RedirectToAction("SuccessPage");
-    }
-    else
-    {
-        // الكلمة السرية غير صحيحة، يمكن عرض رسالة خطأ
-        return Json(new { error = "كلمة المرور غير صحيحة." });
-    }
-}
-```
-
-في هذا المثال، إذا كانت كلمة المرور صحيحة، سيتم توجيه المستخدم إلى "SuccessPage" (التي يجب أن تكون صفحة أخرى موجودة في تطبيقك). إذا كانت خاطئة، ستتم إعادة رسالة JSON مع خاصية "error" لعرضها بواسطة JavaScript.
-
-ثم، يمكنك تحسين الكود الجافا سكربت لتنفيذ السلوك المطلوب:
-
-```javascript
-document.addEventListener("DOMContentLoaded", function () {
-    var saveButton = document.getElementById("savebtn");
-    var errorContainer = document.getElementById("error");
-
-    saveButton.addEventListener("click", function (e) {
-        e.preventDefault();
-        var password = document.getElementById("old").value;
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/login2/EditPasowrdd", true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-        xhr.onload = function () {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                var response = JSON.parse(xhr.responseText);
-                if (response.error) {
-                    // عرض رسالة الخطأ
-                    errorContainer.textContent = response.error;
-                }
-            } else {
-                // حدث خطأ أثناء الطلب
-                errorContainer.textContent = "حدث خطأ أثناء الطلب.";
             }
-        };
-
-        xhr.send(JSON.stringify({ password: password }));
-    });
-});
-```
-
-بهذا الشكل، إذا كانت كلمة المرور صحيحة، ستتم إعادة توجيه المستخدم إلى الصفحة "SuccessPage" (يمكنك استبدالها بالصفحة المستهدفة الخاصة بك)، وإذا كانت خاطئة، ستتم عرض رسالة الخطأ.
-
-
-
-
-
-
-إذا كان الكود السابق يعطيك خطأ في الطلب، يمكنك استخدام Fetch API لإجراء الطلب بطريقة أخرى. إليك الكود الذي يستخدم Fetch API بدلاً من XMLHttpRequest:
-
-```javascript
-document.addEventListener("DOMContentLoaded", function () {
-    var saveButton = document.getElementById("savebtn");
-    var errorContainer = document.getElementById("error");
-
-    saveButton.addEventListener("click", function (e) {
-        e.preventDefault();
-
-        var password = document.getElementById("old").value;
-
-        fetch("/login2/EditPasowrdd", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ password: password }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
-                // على سبيل المثال، يمكنك إعادة توجيه الصفحة إلى صفحة أخرى
-                window.location.href = "/anotherpage";
-            } else {
-                // الكلمة السرية غير صحيحة، عرض رسالة الخطأ ومنع إعادة تحميل الصفحة
-                errorContainer.textContent = data.message;
+            else
+            {
+              
+                return Json(new { error = " passowrd" });
             }
-        })
-        .catch(error => {
-            errorContainer.textContent = "حدث خطأ أثناء الطلب.";
-        });
-    });
-});
-```
+           
 
-هذا الكود يستخدم Fetch API لإرسال الطلب ومعالجة الرد، ويتيح لك التحقق من رد الإجراء وعرض الرسائل بشكل صحيح. يُفضل أيضًا التحقق من تنسيق ونوع البيانات المرجعة في الرد الذي تستقبله من الإجراء.
+        }
