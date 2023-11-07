@@ -110,3 +110,55 @@ public class PasswordViewModel
 ```
 
 الكود الذي تم تبسيطه يستخدم JavaScript الخالي من jQuery للتفاعل مع الصفحة وإجراء الطلب على الخادم بشكل غير متزامن دون إعادة تحميل الصفحة. قم بتغيير "ControllerName" إلى اسم الكونترولر الخاص بك في URL الخاص بالطلب.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////// 
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var saveButton = document.getElementById("savebtn");
+        var errorContainer = document.getElementById("error");
+
+        saveButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            var password = document.getElementById("old").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/login2/EditPasowrdd", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        // كلمة المرور صحيحة، قم بتنفيذ الإجراءات اللازمة هنا
+                    } else if (response.error) {
+                        // كلمة المرور غير صحيحة، عرض رسالة الخطأ
+                        errorContainer.textContent = response.error;
+                    }
+                } else {
+                    errorContainer.textContent = "حدث خطأ أثناء الطلب.";
+                }
+            };
+
+            xhr.send(JSON.stringify({ password: password }));
+        });
+    });
+
