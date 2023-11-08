@@ -93,3 +93,45 @@ if (pattern.test(myString)) {
 يقوم هذا الكود بفحص السلسلة `myString` للتحقق مما إذا كانت تحتوي على حرف كبير ورقم وحرف صغير.
 
 
+--------------------------------------
+
+للتحقق من أن الزائر ليس روبوتًا، يمكنك إضافة اختبار CAPTCHA إلى النموذج. يمكنك استخدام Google reCAPTCHA كواجهة للتحقق من ذلك. إليك كيف يمكنك إضافة reCAPTCHA إلى الكود السابق:
+
+1. قم بإضافة مفتاح reCAPTCHA إلى صفحتك HTML:
+
+```html
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+```
+
+2. أضف عنصر `div` لعرض reCAPTCHA في نموذجك:
+
+```html
+<div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
+```
+
+3. في الكود JavaScript الذي كنت تستخدمه، قم بإجراء اختبار reCAPTCHA قبل إرسال النموذج:
+
+```javascript
+saveButton.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    // التحقق من اجتياز reCAPTCHA
+    var recaptchaResponse = grecaptcha.getResponse();
+    
+    if (!recaptchaResponse) {
+        errorContainer.textContent = "Please complete the reCAPTCHA to prove you're not a robot.";
+        return;
+    }
+
+    // متابعة مع الشروط الأخرى والإرسال
+    var password = document.getElementById("old").value;
+    var x = document.getElementById("x").value;
+    const pattern = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])/;
+
+    // ... (بقية الكود هنا)
+});
+```
+
+تأكد من استبدال `"YOUR_RECAPTCHA_SITE_KEY"` بمفتاح reCAPTCHA الخاص بك.
+
+بهذا الشكل، سيتعين على المستخدمين إكمال اختبار reCAPTCHA لإثبات أنهم ليسوا روبوتات قبل إرسال النموذج.
