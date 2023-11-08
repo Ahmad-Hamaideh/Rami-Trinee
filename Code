@@ -134,4 +134,82 @@ saveButton.addEventListener("click", function (e) {
 
 تأكد من استبدال `"YOUR_RECAPTCHA_SITE_KEY"` بمفتاح reCAPTCHA الخاص بك.
 
-بهذا الشكل، سيتعين على المستخدمين إكمال اختبار reCAPTCHA لإثبات أنهم ليسوا روبوتات قبل إرسال النموذج.
+بهذا الشكل، سيتعين على المستخدمين إكمال اختبار reCAPTCHA لإثبات أنهم ليسوا روبوتات قبل إرسال النموذج. 
+
+
+
+---------------------------------------------------------------------------------------------- 
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var saveButton = document.getElementById("savebtn");                 // الزر الي هيرسل form
+        var errorContainer = document.getElementById("error");              // المكان الي هتكتب فيه الايرور عند حدوث خطاء
+
+        saveButton.addEventListener("click", function (e) {
+            e.preventDefault();
+            // التحقق من اجتياز reCAPTCHA
+         
+            var cleecd = false;
+            var stopbtn = document.getElementById("stop");
+            stopbtn.addEventListener("click", function (w) {
+
+                if (!cleecd) {
+                var recaptchaResponse = grecaptcha.getResponse();
+
+                  if (!recaptchaResponse) {
+                errorContainer.textContent = "Please complete the reCAPTCHA to prove you're not a robot.";
+                return;
+                    }
+                    return; w.preventDefault();
+
+                }
+
+
+
+
+            var password = document.getElementById("old").value;               // قيمة inputs الي عندك ولكن تاكد انه عدد القيم الي بالاكشن هي نفسها الي هون والي هتبعثها
+            var x = document.getElementById("x").value;
+            const pattern = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])/;
+
+            /*if (x.value < 4) { errorContainer.textContent = "Sorry, the password new  is lis 4 char"; }*/
+
+
+            // استخدام الدالة test لفحص النمط
+            if (password.length >= 4) {
+                if (!pattern.test(x)) {
+                    errorContainer.textContent = "The Password contains an uppercase letter, a number, and a lowercase letter "; return;
+                } else if (x.length < 4) {
+                    errorContainer.textContent = "The  Password liss 4 char"; return;
+                } else if (password == x) {
+                    errorContainer.textContent = "The  Password used "; return;
+                }
+            }
+
+            fetch("\\login2/EditPaswordd", {                                  // الاكشن الي هتبعثله القيم
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ password: password, x: x }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/login2/';                                      // اذا كان صح ايش يظهر ؟
+                    } else {
+                        // الكلمة السرية غير صحيحة، عرض رسالة الخطأ ومنع إعادة تحميل الصفحة
+                        errorContainer.textContent = "The Password Old is a wrong ";
+                    }
+
+
+                });
+
+            /* else { errorContainer.textContent = "The Password contains an uppercase letter, a number, and a lowercase letter OR Password liss 4 char"; }*/
+            // يستخدم عند عدم وصول الريكوست من الاساس
+            //.catch(error => {
+            //    errorContainer.textContent = "حدث خطأ أثناء الطلب.";
+
+        });
+    });
+
+
+</script>
