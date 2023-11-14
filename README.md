@@ -14,6 +14,7 @@ Training aimed at reviewing the basics of the code ❤❤
 - IndexDb
 - Data structure
 - Ajax
+- API
 
 
 ## ⚡️ Fun ...
