@@ -1,4 +1,4 @@
-   if (window.indexedDB) { window.alert("your browsar support indexdb") }
+ if (window.indexedDB) { window.alert("your browsar support indexdb") }
 
     // This works on all devices/browsers, and uses IndexedDBShim as a final fallback 
     var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
@@ -38,14 +38,23 @@
             console.log(getBob.result.name.first);   // => "Bob"
         };
 
+
+        var allRecords = store.getAll();             // => get all data 
+        allRecords.onsuccess = function () {
+            console.log(allRecords.result);
+        };
+
+
         //let deleteRequest = store.delete(12345);            //// => delete from indexdb
 
 
 
         //let updateRequest = store.put({ id: 12345, first: "mark", last:"lol" ,age: 30 });          //// => updateRequest
 
-       //indexedDB.deleteDatabase("databaseName")    //// ==> delet database index
 
+        //indexedDB.deleteDatabase("databaseName")    //// ==> delet database index
+
+         
 
         // Close the db when the transaction is done
         tx.oncomplete = function () {
