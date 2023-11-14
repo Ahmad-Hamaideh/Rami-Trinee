@@ -44,7 +44,8 @@
 
         //let updateRequest = store.put({ id: 12345, first: "mark", last:"lol" ,age: 30 });          //// => updateRequest
 
-      
+       //indexedDB.deleteDatabase("databaseName")    //// ==> delet database index
+
 
         // Close the db when the transaction is done
         tx.oncomplete = function () {
