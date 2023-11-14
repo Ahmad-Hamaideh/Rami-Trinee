@@ -1,0 +1,73 @@
+###( ajax on js   لجعل الكود غير متزامن بحيث عند جدوث خطاء ما بعمل ريلود للصفحة استخدم  ***  )
+
+
+
+
+                <input type="text" name="old" id="old" />         id عاديه جدا وبنوصللها عن طريق 
+ 
+  
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var saveButton = document.getElementById("savebtn");                 // الزر الي هيرسل form
+        var errorContainer = document.getElementById("error");              // المكان الي هتكتب فيه الايرور عند حدوث خطاء
+
+        saveButton.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            var password = document.getElementById("old").value;               // قيمة inputs الي عندك ولكن تاكد انه عدد القيم الي بالاكشن هي نفسها الي هون والي هتبعثها
+            var x = document.getElementById("x").value;
+
+
+            fetch("\\login2/EditPaswordd", {                                  // الاكشن الي هتبعثله القيم
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ password: password, x : x }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        //    errorContainer.textContent = "true";
+                        window.location.href = '/login2/';                                      // اذا كان صح ايش يظهر ؟
+                    } else {
+                        // الكلمة السرية غير صحيحة، عرض رسالة الخطأ ومنع إعادة تحميل الصفحة
+                        errorContainer.textContent = "erorr";
+                    }
+
+                })
+                   // يستخدم عند عدم وصول الريكوست من الاساس  
+                //.catch(error => {
+                //    errorContainer.textContent = "حدث خطأ أثناء الطلب.";                
+               
+        });
+    }); 
+  </script> 
+
+
+
+ (وهنا الاكشن المستخم ولاحظ انه  القيمه المرسله من جافاسكربت هي نفسها الي هستقبلها بالاكشن )
+
+    [HttpPost]
+        public ActionResult EditPaswordd([Bind(Include = "password")]    string password , string x )
+        {       
+            var oldd = db.login2.FirstOrDefault (c => c.password == password);
+            if ( oldd != null)
+            {
+                oldd.password = x ;            
+                db.Entry(oldd).State = EntityState.Modified;
+                db.SaveChanges();
+
+                return Json(new { success = true });              // json لاحظ انك بترجع 
+
+            }
+            else
+            {
+              
+                return Json(new { error = " passowrd" });
+            }
+           
+
+        }
+
+
