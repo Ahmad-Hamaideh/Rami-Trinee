@@ -39,3 +39,7 @@ string connection = builder.Configuration.GetConnectionString("Index");
 builder.Services.AddDbContext<AhmadTreneeContext>(options => options.UseSqlServer(connection));
 
 ```
+
+## 📚 ASP.NET Core Book 
+
+[Donlowed Book](https://www.mediafire.com/download_repair.php?qkey=9slj4xo24sv1pu5&dkey=v4vpekb7iqr&template=51&origin=click_button)
