@@ -15,6 +15,7 @@ Training aimed at reviewing the basics of the code ❤❤
 - Data structure
 - Ajax
 - API
+- SignalR
 
 
 ## ⚡️ Fun ...
