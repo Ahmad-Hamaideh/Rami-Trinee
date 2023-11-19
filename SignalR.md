@@ -22,7 +22,41 @@ Add Clint Side lib
 ```
 
 ### 🔸 Creat Viwe 
+```Html
 
+<div class="text-center" style="padding : 80px">
+   <div class="row">
+       <div class="col-md-6" style="    background-color: #c3ffeba3;
+    padding: 50px;
+    border: 104px">
+           <span> enter youe name : </span> <bR />
+           <input  type="text" id="txtUser" />  <bR /><bR />
+           <span> enter youe massage : </span> <bR />
+            <textarea rows="8" cols="30" id="message"> </textarea> <br />  <bR />
+           <button type="submit" id="btn" class="btn btn-info"> Send Massege </button>
+       </div>
+       <BR />
+       <div class="col-md-6">
+           <h3>Massege List</h3>
+            <ul id="list" class="alert alert-info" style="    color: #055160;
+                                                     background-color: #cff4fc;
+                                                     border-color: #b6effb;
+                                                                padding: 57px;">
+
+           </ul>
+       </div>
+   </div>
+</div>
+
+<a href="~/lib/jquery/dist/jquery.min.map"></a>
+
+
+<script src="~/js/clintt.js"></script>
+
+<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+
+
+```
 
 ### 🔸Creat Folder (HUBS) 
 on folder add class (useres) 
