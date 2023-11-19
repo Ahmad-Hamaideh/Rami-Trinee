@@ -23,7 +23,7 @@ var configuration = new ConfigurationBuilder()
 IDbConnection db = new SqlConnection(configuration.GetSection("constr").Value);
 ```
 
-##Dapper ❤️‍🔥
+#Dapper ❤️‍🔥
 
 🔸Dapper عبارة عن Micro-ORM وتختص بعملية الوصول لقاعدة البيانات
 🔸وهي طبقة تكون فوق ado.net 
